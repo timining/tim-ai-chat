@@ -23,7 +23,7 @@ interface ToolsDropdownProps {
 
 const ToolsDropdown = ({ disabled }: ToolsDropdownProps) => {
   const localize = useLocalize();
-  const isDisabled = disabled ?? false;
+  const isDisabled = true;
   const [isPopoverActive, setIsPopoverActive] = useState(false);
   const {
     webSearch,
