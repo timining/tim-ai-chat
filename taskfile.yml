@@ -1,0 +1,21 @@
+version: "3"
+
+vars:
+  version:
+    sh: node -p "require('./package.json').version"  
+
+tasks:
+  default:
+    silent: true
+    cmds:
+      - task --list --sort none
+
+  build-container:
+    silent: true
+    desc: Build Docker image.
+    cmds:
+      - >
+        docker build 
+        -t tim-ai/chat:{{.version}}
+        -f Dockerfile
+        --no-cache .
