@@ -1,7 +1,7 @@
 import React, { useRef, useState, useMemo } from 'react';
 import * as Ariakit from '@ariakit/react';
 import { useRecoilState } from 'recoil';
-import { FileSearch, ImageUpIcon, TerminalSquareIcon, FileType2Icon } from 'lucide-react';
+import { FileSearch, ImageUpIcon, TerminalSquareIcon, FileType2Icon, FileUp } from 'lucide-react';
 import { EToolResources, EModelEndpoint, defaultAgentCapabilities } from 'librechat-data-provider';
 import {
   FileUpload,
@@ -91,8 +91,19 @@ const AttachFileMenu = ({
             onAction(true);
           },
           icon: <ImageUpIcon className="icon-md" />,
-        },
+        }
       ];
+
+      items.push(
+        {
+          label: localize('com_ui_upload_files'),
+          onClick: () => {
+            setToolResource(undefined);
+            onAction();
+          },
+          icon: <FileUp className="icon-md" />,
+        }
+      )
 
       if (capabilities.contextEnabled) {
         items.push({
@@ -147,7 +158,7 @@ const AttachFileMenu = ({
       });
       localItems.push({
         label: localize('com_files_upload_sharepoint'),
-        onClick: () => {},
+        onClick: () => { },
         icon: <SharePointIcon className="icon-md" />,
         subItems: sharePointItems,
       });
