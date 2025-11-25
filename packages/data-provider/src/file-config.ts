@@ -118,7 +118,7 @@ export const textMimeTypes =
   /^(text\/(x-c|x-csharp|tab-separated-values|x-c\+\+|x-h|x-java|html|markdown|x-php|x-python|x-script\.python|x-ruby|x-tex|plain|css|vtt|javascript|csv|xml))$/;
 
 export const applicationMimeTypes =
-  /^(application\/(epub\+zip|csv|json|pdf|x-tar|typescript|vnd\.openxmlformats-officedocument\.(wordprocessingml\.document|presentationml\.presentation|spreadsheetml\.sheet)|xml|zip))$/;
+  /^(application\/(epub\+zip|csv|json|pdf|dxf|x-tar|typescript|vnd\.openxmlformats-officedocument\.(wordprocessingml\.document|presentationml\.presentation|spreadsheetml\.sheet)|xml|zip))$/;
 
 export const imageMimeTypes = /^image\/(jpeg|gif|png|webp|heic|heif)$/;
 
@@ -171,13 +171,14 @@ export const codeTypeMapping: { [key: string]: string } = {
   zip: 'application/zip',
   yml: 'application/x-yaml',
   yaml: 'application/x-yaml',
+  dxf: 'application/dxf',
   log: 'text/plain',
   tsv: 'text/tab-separated-values',
 };
 
 export const retrievalMimeTypes = [
   /^(text\/(x-c|x-c\+\+|x-h|html|x-java|markdown|x-php|x-python|x-script\.python|x-ruby|x-tex|plain|vtt|xml))$/,
-  /^(application\/(json|pdf|vnd\.openxmlformats-officedocument\.(wordprocessingml\.document|presentationml\.presentation)))$/,
+  /^(application\/(json|pdf|dxf|vnd\.openxmlformats-officedocument\.(wordprocessingml\.document|presentationml\.presentation)))$/,
 ];
 
 export const megabyte = 1024 * 1024;
