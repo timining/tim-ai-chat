@@ -380,9 +380,8 @@ const uploadImageBuffer = async ({ req, context, metadata = {}, resize = true })
       inputBuffer: buffer,
       desiredFormat: appConfig.imageOutputType,
     }));
-    filename = `${path.basename(req.file.originalname, path.extname(req.file.originalname))}.${
-      appConfig.imageOutputType
-    }`;
+    filename = `${path.basename(req.file.originalname, path.extname(req.file.originalname))}.${appConfig.imageOutputType
+      }`;
   }
   const fileName = `${file_id}-${filename}`;
   const filepath = await saveBuffer({ userId: req.user.id, fileName, buffer });
@@ -508,9 +507,9 @@ const processAgentFileUpload = async ({ req, res, metadata }) => {
   const { file } = req;
   const appConfig = req.config;
   const { agent_id, tool_resource, file_id, temp_file_id = null } = metadata;
-  if (agent_id && !tool_resource) {
-    throw new Error('No tool resource provided for agent file upload');
-  }
+  // if (agent_id && !tool_resource) {
+  //   throw new Error('No tool resource provided for agent file upload');
+  // }
 
   if (tool_resource === EToolResources.file_search && file.mimetype.startsWith('image')) {
     throw new Error('Image uploads are not supported for file search tool resources');
@@ -522,10 +521,10 @@ const processAgentFileUpload = async ({ req, res, metadata }) => {
   }
 
   const isImage = file.mimetype.startsWith('image');
-  if (!isImage && !tool_resource) {
-    /** Note: this needs to be removed when we can support files to providers */
-    throw new Error('No tool resource provided for non-image agent file upload');
-  }
+  // if (!isImage && !tool_resource) {
+  //   /** Note: this needs to be removed when we can support files to providers */
+  //   throw new Error('No tool resource provided for non-image agent file upload');
+  // }
 
   let fileInfoMetadata;
   const entity_id = messageAttachment === true ? undefined : agent_id;
@@ -744,9 +743,8 @@ const processOpenAIFile = async ({
 }) => {
   const _file = await openai.files.retrieve(file_id);
   const originalName = filename ?? (_file.filename ? path.basename(_file.filename) : undefined);
-  const filepath = `${openai.baseURL}/files/${userId}/${file_id}${
-    originalName ? `/${originalName}` : ''
-  }`;
+  const filepath = `${openai.baseURL}/files/${userId}/${file_id}${originalName ? `/${originalName}` : ''
+    }`;
   const type = mime.getType(originalName ?? file_id);
   const source =
     openai.req.body.endpoint === EModelEndpoint.azureAssistants
@@ -1014,8 +1012,7 @@ function filterFile({ req, image, isAvatar }) {
 
   if (file.size > fileSizeLimit) {
     throw new Error(
-      `File size limit of ${fileSizeLimit / megabyte} MB exceeded for ${
-        isAvatar ? 'avatar upload' : `${endpoint} endpoint`
+      `File size limit of ${fileSizeLimit / megabyte} MB exceeded for ${isAvatar ? 'avatar upload' : `${endpoint} endpoint`
       }`,
     );
   }

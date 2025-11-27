@@ -161,7 +161,7 @@ class AgentClient extends BaseClient {
    * `AgentClient` is not opinionated about vision requests, so we don't do anything here
    * @param {MongoFile[]} attachments
    */
-  checkVisionRequest() {}
+  checkVisionRequest() { }
 
   getSaveOptions() {
     // TODO:
@@ -813,6 +813,29 @@ class AgentClient extends BaseClient {
        * @param {Record<string, number>} [currentIndexCountMap]
        */
       const runAgent = async (agent, _messages, i = 0, contentData = [], _currentIndexCountMap) => {
+        const reqFiles = this.options.req.body.files;
+
+        if (i === 0 && reqFiles && reqFiles.length > 0) {
+          const lastMsgIndex = _messages.length - 1;
+          const lastMsg = _messages[lastMsgIndex];
+
+          if (lastMsg) {
+            const filePayload = JSON.stringify({
+              file_ids: reqFiles.map(f => f.file_id),
+              files: reqFiles
+            });
+
+            const injection = `\n\n:::METADATA_START:::${filePayload}:::METADATA_END:::`;
+            if (typeof lastMsg.content === 'string') {
+              lastMsg.content += injection;
+            } else if (Array.isArray(lastMsg.content)) {
+              lastMsg.content.push({
+                type: 'text',
+                text: injection
+              });
+            }
+          }
+        }
         config.configurable.model = agent.model_parameters.model;
         const currentIndexCountMap = _currentIndexCountMap ?? indexTokenCountMap;
         if (i > 0) {

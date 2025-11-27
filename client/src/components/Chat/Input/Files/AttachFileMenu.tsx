@@ -98,7 +98,7 @@ const AttachFileMenu = ({
         {
           label: localize('com_ui_upload_files'),
           onClick: () => {
-            setToolResource(EToolResources.context);
+            setToolResource(undefined);
             onAction();
           },
           icon: <FileUp className="icon-md" />,

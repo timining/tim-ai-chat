@@ -29,6 +29,7 @@ const initializeS3 = () => {
   const accessKeyId = process.env.AWS_ACCESS_KEY_ID;
   const secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 
+
   const config = {
     region,
     // Conditionally add the endpoint if it is provided
@@ -38,6 +39,7 @@ const initializeS3 = () => {
   if (accessKeyId && secretAccessKey) {
     s3 = new S3Client({
       ...config,
+      forcePathStyle: true, // Required for some S3-compatible services
       credentials: { accessKeyId, secretAccessKey },
     });
     logger.info('[initializeS3] S3 initialized with provided credentials.');
